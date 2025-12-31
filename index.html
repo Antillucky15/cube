@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>New Year ✨</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{
+  background:linear-gradient(to bottom,#fde6f2,#e9f5ff);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* ENVELOPE */
+.envelope{
+  width:340px;height:220px;
+  background:#ffd6e8;
+  border-radius:15px;
+  position:relative;
+  cursor:pointer;
+  box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+.flap{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:50%;
+  background:#ffc2dc;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top;
+  transition:1s;
+}
+.envelope.open .flap{transform:rotateX(180deg)}
+.envelope-text{
+  position:absolute;
+  bottom:28px;
+  width:100%;
+  text-align:center;
+  font-size:14px;
+}
+
+/* CARD */
+.card{
+  display:none;
+  width:340px;height:520px;
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.2);
+  perspective:1200px;
+}
+.slides{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+}
+.slide{
+  position:absolute;
+  inset:0;
+  padding:25px;
+  background:#fff;
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  backface-visibility:hidden;
+  transform:rotateY(90deg);
+  transition:.8s;
+}
+.slide.active{transform:rotateY(0deg)}
+.slide.prev{transform:rotateY(-90deg)}
+
+/* BUTTONS */
+.option{
+  margin:8px 0;
+  padding:12px 22px;
+  border-radius:25px;
+  border:none;
+  background:#fff;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+  cursor:pointer;
+}
+.option.selected{
+  background:#ffb6d9;
+  box-shadow:0 0 12px #ff7ebc;
+}
+.next{
+  margin-top:20px;
+  font-size:13px;
+  opacity:.7;
+  cursor:pointer;
+}
+
+/* HEART */
+.heart{
+  font-size:26px;
+  color:#ff5fa2;
+  animation:pulse 1.5s infinite;
+  margin-bottom:10px;
+}
+@keyframes pulse{
+  50%{transform:scale(1.2);text-shadow:0 0 12px #ff5fa2}
+}
+
+.highlight{
+  font-weight:bold;
+  color:#e75480;
+  text-shadow:0 0 8px #f7a3c7;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ENVELOPE -->
+<div class="envelope" id="envelope" onclick="openEnvelope()">
+  <div class="flap"></div>
+  <div class="envelope-text" id="envText">
+    ✨ Wishes from<br><b>Lucky Antil</b>
+  </div>
+</div>
+
+<!-- CARD -->
+<div class="card" id="card">
+<div class="slides">
+
+<div class="slide active">
+  <div class="heart">❤</div>
+  <h3>Happy New Year Drishti ✨</h3>
+  <p style="margin-top:12px">Are you pretty?</p>
+  <button class="option" onclick="next()">A. Yes</button>
+  <button class="option" onclick="next()">B. Option A</button>
+</div>
+
+<div class="slide">
+  <p style="font-size:13px;line-height:1.6">
+    Mehngi hai tu Kohinoor se bhi,<br>
+    Khoobsurat hai tu hoor se bhi.<br><br>
+    Door se dikhte hain chaand mein daag,<br>
+    Magar bedaag hai tu door se bhi.
+  </p>
+  <div class="next" onclick="next()">Next →</div>
+</div>
+
+<div class="slide">
+  <p>I can’t define you into words…</p>
+  <p style="margin-top:15px;font-style:italic">
+    Noor-e-jahan, noor-e-mohabbat<br>
+    dono jude tujh se piya
+  </p>
+  <p class="highlight">CHASHMISH 🤍</p>
+  <div class="next" onclick="next()">Next →</div>
+</div>
+
+<div class="slide">
+  <h3>🎧 Choose a song</h3>
+  <button class="option" onclick="play(this,'s1')">High On You</button>
+  <button class="option" onclick="play(this,'s2')">Tere Jeha</button>
+  <button class="option" onclick="play(this,'s3')">You</button>
+
+  <audio id="s1" src="HIGH ON YOU(KoshalWorld.Com).mp3"></audio>
+  <audio id="s2" src="Tere Jeha - Talwiinder & Push Kahlon (Mr-Punjab.Com).mp3"></audio>
+  <audio id="s3" src="You (PenduJatt.Com.Se).mp3"></audio>
+
+  <div class="next" onclick="if(song)next();else alert('Choose a song 🎵')">Next →</div>
+</div>
+
+<div class="slide">
+  <h3>🎯 Resolutions</h3>
+  <button class="option" onclick="this.classList.toggle('selected')">✈️ Visit dream place</button>
+  <button class="option" onclick="this.classList.toggle('selected')">📚 Learn more</button>
+  <button class="option" onclick="this.classList.toggle('selected')">🧠 Care for mind & body</button>
+  <button class="option" onclick="this.classList.toggle('selected')">🤍 Time with loved ones</button>
+  <div class="next" onclick="checkRes()">Next →</div>
+</div>
+
+<div class="slide">
+  <p style="line-height:1.6">
+    As the new year begins,<br><br>
+    I just wanted to share a few good thoughts with you.<br><br>
+    May the coming year bring you<br>
+    <b>peace, growth,</b><br>
+    and many <b>small wins</b>.
+  </p>
+  <div class="next" onclick="closeEnvelope()">Seal ✨</div>
+</div>
+
+</div>
+</div>
+
+<script>
+let slides=document.querySelectorAll(".slide");
+let index=0,song=false;
+
+function openEnvelope(){
+  envelope.classList.add("open");
+  setTimeout(()=>{
+    envelope.style.display="none";
+    card.style.display="block";
+  },900);
+}
+
+function next(){
+  slides[index].classList.remove("active");
+  slides[index].classList.add("prev");
+  index++;
+  slides[index].classList.add("active");
+}
+
+function play(btn,id){
+  document.querySelectorAll("audio").forEach(a=>{a.pause();a.currentTime=0});
+  document.getElementById(id).play();
+  song=true;
+  btn.classList.add("selected");
+}
+
+function checkRes(){
+  let any=false;
+  slides[index].querySelectorAll(".option").forEach(b=>{
+    if(b.classList.contains("selected")) any=true;
+  });
+  if(any) next(); else alert("Choose at least one 🌸");
+}
+
+/* ✅ CLOSING ENVELOPE */
+function closeEnvelope(){
+  card.style.display="none";
+  envelope.style.display="block";
+  envText.innerHTML =
+    "<small>— sealed —</small><br><b>Happy New Year!</b><br>May 2026 be kind ✨";
+  setTimeout(()=>envelope.classList.remove("open"),100);
+}
+</script>
+
+</body>
+</html>
